@@ -9,7 +9,7 @@ class LinkedInEntry {
      */
     constructor(data) {
         // Basic properties
-        this.type = data.type || '';
+        this.inputUrl = data.inputUrl || '';
         this.isRepost = data.isRepost === 'True';
         this.urn = data.urn || '';
         this.url = data.url || '';
@@ -77,9 +77,51 @@ class LinkedInEntry {
         this.resharedPost = data.resharedPost || '';
         this.linkedinVideo = data.linkedinVideo || '';
         this.document = data.document || '';
-        
-        // Original source
-        this.inputUrl = data.inputUrl || '';
+
+        // Determine post type based on inputURL
+        this.type = this.determinePostType();
+    }
+
+    /**
+     * Determine the post type based on inputURL and various dictionaries
+     * @returns {string} - POST, COMMENT, REACTION, or REPOST
+     */
+    determinePostType() {
+        // Get the public ID from inputURL (string after 'in/')
+        const inputUrlPublicId = this.inputUrl.split('in/')[1]?.split('?')[0];
+        if (!inputUrlPublicId) return 'UNKNOWN';
+
+        // Check if it's a repost
+        if (this.isRepost) {
+            return 'REPOST';
+        }
+
+        // Check if it's a post (author URL matches inputURL)
+        const authorUrlBase = this.authorProfileUrl.split('?')[0];
+        const inputUrlBase = this.inputUrl.split('?')[0];
+        if (authorUrlBase === inputUrlBase) {
+            return 'POST';
+        }
+
+        // Check if it's a comment
+        if (Array.isArray(this.comments)) {
+            for (const comment of this.comments) {
+                if (comment.commentorPublicId === inputUrlPublicId) {
+                    return 'COMMENT';
+                }
+            }
+        }
+
+        // Check if it's a reaction
+        if (Array.isArray(this.reactions)) {
+            for (const reaction of this.reactions) {
+                if (reaction.reactorPublicId === inputUrlPublicId) {
+                    return 'REACTION';
+                }
+            }
+        }
+
+        return 'UNKNOWN';
     }
     
     /**

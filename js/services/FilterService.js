@@ -122,13 +122,13 @@ class FilterService {
         if (this.currentFilters.types.includes('all')) return data;
         
         return data.filter(entry => {
-            // Check for specific types
-            if (this.currentFilters.types.includes(entry.type.toLowerCase())) return true;
+            // Convert entry type to uppercase for comparison
+            const entryType = entry.type.toUpperCase();
             
-            // Handle repost type
-            if (this.currentFilters.types.includes('repost') && entry.isRepost) return true;
-            
-            return false;
+            // Check if the entry type matches any of the selected types
+            return this.currentFilters.types.some(type => 
+                type.toUpperCase() === entryType
+            );
         });
     }
 
