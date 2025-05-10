@@ -29,7 +29,9 @@ class LinkedInEntry {
         // Parse comments if they exist
         try {
             this.comments = typeof data.comments === 'string' ? 
-                JSON.parse(data.comments.replace(/'/g, '"')) : 
+                JSON.parse(data.comments.replace(/'/g, '"')
+                .replace(/\bFalse\b/g, 'false')
+                .replace(/\bTrue\b/g, 'true')) : 
                 data.comments || [];
         } catch (e) {
             this.comments = [];
@@ -106,7 +108,8 @@ class LinkedInEntry {
         // Check if it's a comment
         if (Array.isArray(this.comments)) {
             for (const comment of this.comments) {
-                if (comment.commentorPublicId === inputUrlPublicId) {
+                if (!comment.author) continue;
+                if (comment.author.publicId === inputUrlPublicId) {
                     return 'COMMENT';
                 }
             }
@@ -115,7 +118,7 @@ class LinkedInEntry {
         // Check if it's a reaction
         if (Array.isArray(this.reactions)) {
             for (const reaction of this.reactions) {
-                if (reaction.reactorPublicId === inputUrlPublicId) {
+                if (reaction.profile.publicId === inputUrlPublicId) {
                     return 'REACTION';
                 }
             }
