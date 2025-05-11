@@ -93,10 +93,10 @@ class LinkedInEntry {
         const inputUrlPublicId = this.inputUrl.split('in/')[1]?.split('?')[0];
         if (!inputUrlPublicId) return 'UNKNOWN';
 
-        // Check if it's a repost
-        if (this.isRepost) {
-            return 'REPOST';
-        }
+        // // Check if it's a repost
+        // if (this.isRepost) {
+        //     return 'REPOST';
+        // }
 
         // Check if it's a post (author URL matches inputURL)
         const authorUrlBase = this.authorProfileUrl.split('?')[0];
@@ -124,7 +124,7 @@ class LinkedInEntry {
             }
         }
 
-        return 'UNKNOWN';
+        return 'REPOST OR SHARE';
     }
     
     /**
