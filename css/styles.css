@@ -1,7 +1,8 @@
 /* Main styles for LinkedIn Analytics Dashboard */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #e0f2ff 0%, #ffffff 100%) !important;
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
@@ -18,11 +19,13 @@ body {
     width: 250px;
     height: 100vh;
     z-index: 999;
-    background: #343a40;
+    background: linear-gradient(180deg, #e0f2ff 0%, #f5faff 100%);
     color: white;
     transition: all 0.3s;
     padding-top: 20px;
     overflow-y: auto;
+    border-radius: 1.5rem 0 0 1.5rem;
+    box-shadow: 2px 0 16px 0 rgba(0, 123, 255, 0.06);
 }
 
 .sidebar-header {
@@ -32,23 +35,32 @@ body {
     align-items: center;
 }
 
+.sidebar-header h3 {
+    color: #0077b5;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
 .sidebar ul li {
     padding: 10px 20px;
     transition: all 0.3s;
 }
 
 .sidebar ul li a {
-    color: #ccc;
+    color: #333;
     text-decoration: none;
     display: block;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
 }
 
 .sidebar ul li.active {
-    background: #2c3136;
+    background: #d0eaff;
 }
 
 .sidebar ul li.active a {
-    color: white;
+    color: #0077b5 !important;
+    border-radius: 0.75rem;
 }
 
 .sidebar ul li:hover {
@@ -74,15 +86,21 @@ body {
     display: block;
 }
 
-.card {
-    border-radius: 10px;
+/* Card styling with shadcdn and blue accents */
+.card, .shad-card {
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 24px 0 rgba(0, 123, 255, 0.08);
+    background: linear-gradient(120deg, #f5faff 80%, #e0f2ff 100%);
     border: none;
     margin-bottom: 20px;
 }
 
-.card-header {
-    background-color: #fff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+.card-header, .shad-card-header {
+    background: linear-gradient(90deg, #e0f2ff 0%, #f5faff 100%);
+    border-bottom: none;
+    color: #0077b5;
+    font-weight: 600;
+    font-size: 1.15rem;
     padding: 15px 20px;
     border-radius: 10px 10px 0 0 !important;
 }
@@ -111,6 +129,14 @@ body {
     color: #007bff;
 }
 
+/* Table header styling */
+.table thead th {
+    background: #e0f2ff;
+    color: #0077b5;
+    font-weight: 700;
+    border: none;
+}
+
 /* Card view styles */
 .profile-card {
     transition: transform 0.3s;
@@ -133,6 +159,7 @@ body {
 @media (max-width: 768px) {
     .sidebar {
         margin-left: -250px;
+        border-radius: 0 0 1.5rem 1.5rem;
     }
     
     .sidebar.active {
@@ -150,6 +177,10 @@ body {
     .sidebar-toggle {
         display: block;
         cursor: pointer;
+    }
+    
+    .card, .shad-card {
+        border-radius: 1rem;
     }
 }
 
@@ -207,4 +238,32 @@ body {
 
 .btn-pulse {
     animation: pulse 1.5s infinite;
+}
+
+/* Button styling */
+.btn, .shad-btn {
+    border-radius: 0.75rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #0077b5 0%, #00c6fb 100%);
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px 0 rgba(0, 123, 255, 0.10);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.btn-primary, .btn-success, .btn-secondary {
+    background: linear-gradient(90deg, #0077b5 0%, #00c6fb 100%);
+    color: #fff;
+}
+.btn:hover, .btn:focus {
+    background: linear-gradient(90deg, #005983 0%, #0077b5 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px 0 rgba(0, 123, 255, 0.15);
+}
+
+/* Miscellaneous */
+.alert {
+    border-radius: 0.75rem;
+    background: linear-gradient(90deg, #e0f2ff 0%, #f5faff 100%);
+    color: #0077b5;
+    border: none;
 }
